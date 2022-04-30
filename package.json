@@ -1,0 +1,19 @@
+{
+  "name": "search-movie-shows",
+  "version": "1.0.0",
+  "description": "To search movie and tv shows",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashmehra99/search-movie-shows.git"
+  },
+  "author": "Akash Mehra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akashmehra99/search-movie-shows/issues"
+  },
+  "homepage": "https://github.com/akashmehra99/search-movie-shows#readme"
+}
