@@ -4,8 +4,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import indexCss from './index.css';
 
-import { Container } from "./components/container/Container.component";
-import { SideMenu } from "./components/side-menu/SideMenu.component";
+import { Container } from "./components/container/container.component";
+import { SideMenu } from "./components/side-menu/sideMenu.component";
 
 const darkTheme = createTheme({
     palette: {

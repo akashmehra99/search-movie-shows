@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header } from "../header/Header.component";
+import { Header } from "../header/header.component";
 
 export const Container = () => {
 
