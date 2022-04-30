@@ -1,0 +1,18 @@
+aside {
+  height: 100vh;
+  max-height: 100%;
+  width: 20%;
+  background: var(--side-menu-background);
+  box-shadow: -10px 0 5px var(--shadow);
+}
+
+aside h3 {
+  color: var(--white);
+  height: 7rem;
+  padding: 3rem;
+}
+
+.formConatiner {
+  padding: 0 2rem 0 3rem;
+  color: var(--white);
+}
