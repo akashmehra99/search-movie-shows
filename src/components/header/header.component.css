@@ -22,3 +22,7 @@ header {
 .search {
   width: 15%;
 }
+
+.menu .selectedBtn {
+  color: var(--white);
+}

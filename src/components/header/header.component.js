@@ -1,26 +1,91 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 
+import "./header.component.css";
 
-import headerCss from "./header.component.css";
+import { setCategory } from "../../actions/discover";
 
-export const Header = () => {
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.selectCategory = this.selectCategory.bind(this);
+  }
 
+  selectCategory(event) {
+    const category = event.currentTarget.getAttribute("category-val");
+    this.props.dispatch(setCategory(category));
+  }
+
+  render() {
     return (
-        <React.Fragment>
-            <header>
-                <div className={headerCss.title}>Discover</div>
-                <div className={headerCss.menu}>
-                    <Button variant="text" size="large">Popular</Button>
-                    <Button variant="text" size="large">Trend</Button>
-                    <Button variant="text" size="large">Newest</Button>
-                    <Button variant="text" size="large">Top Rated</Button>
-                </div>
-                <div className={headerCss.search}>
-                    <Button variant="text" size="large">Search</Button>
-                </div>
-            </header>
-        </React.Fragment>
-    )
+      <React.Fragment>
+        <header>
+          <div className="title">Discover</div>
+          <div className="menu">
+            <Button
+              variant="text"
+              size="large"
+              onClick={this.selectCategory}
+              category-val="popular"
+              className={`${
+                this.props.category === "popular" ? "selectedBtn" : ""
+              }`}
+            >
+              Popular
+            </Button>
+            <Button
+              variant="text"
+              size="large"
+              onClick={this.selectCategory}
+              category-val="trend"
+              className={`${
+                this.props.category === "trend" ? "selectedBtn" : ""
+              }`}
+            >
+              Trend
+            </Button>
+            <Button
+              variant="text"
+              size="large"
+              onClick={this.selectCategory}
+              category-val="newest"
+              className={`${
+                this.props.category === "newest" ? "selectedBtn" : ""
+              }`}
+            >
+              Newest
+            </Button>
+            <Button
+              variant="text"
+              size="large"
+              onClick={this.selectCategory}
+              category-val="top-rated"
+              className={`${
+                this.props.category === "top-rated" ? "selectedBtn" : ""
+              }`}
+            >
+              Top Rated
+            </Button>
+          </div>
+          <div className="search">
+            <Button variant="text" size="large">
+              Search
+            </Button>
+          </div>
+        </header>
+      </React.Fragment>
+    );
+  }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    category: state.discover.category,
+  };
+};
+
+const ConnectedSideMenu = connect(mapStateToProps)(Header);
+
+export default ConnectedSideMenu;
