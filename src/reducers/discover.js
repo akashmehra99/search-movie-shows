@@ -3,6 +3,9 @@ const discoverDefaultState = {
   genre: "",
   contentType: "movie",
   category: "popular",
+  error: false,
+  results: [],
+  page: 1,
 };
 
 const discoverReducer = (state = discoverDefaultState, action) => {

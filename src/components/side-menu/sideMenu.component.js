@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import "./sideMenu.css";
+import "./sideMenu.component.css";
 
 import { discoverAPI } from "../../api/discover.api";
 import { setGenre, setGenres, setType } from "../../actions/discover";
@@ -23,7 +23,7 @@ class SideMenu extends Component {
   componentDidMount() {
     discoverApi.getGenres().then((genres) => {
       this.props.dispatch(setGenres(genres));
-      this.props.dispatch(setGenre(genres[0].name));
+      // this.props.dispatch(setGenre(genres[0].name));
     });
   }
 

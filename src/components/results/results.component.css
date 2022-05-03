@@ -1,0 +1,5 @@
+.results-container {
+  width: 76%;
+  margin: 2rem 2rem 1rem 3.3rem;
+  height: calc(100vh - 9rem);
+}

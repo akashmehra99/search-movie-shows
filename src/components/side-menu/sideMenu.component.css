@@ -1,6 +1,9 @@
 aside {
   height: 100vh;
   max-height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 20%;
   background: var(--side-menu-background);
   box-shadow: -10px 0 5px var(--shadow);

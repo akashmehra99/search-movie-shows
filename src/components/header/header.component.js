@@ -50,9 +50,9 @@ class Header extends Component {
               variant="text"
               size="large"
               onClick={this.selectCategory}
-              category-val="newest"
+              category-val="latest"
               className={`${
-                this.props.category === "newest" ? "selectedBtn" : ""
+                this.props.category === "latest" ? "selectedBtn" : ""
               }`}
             >
               Newest
@@ -61,9 +61,9 @@ class Header extends Component {
               variant="text"
               size="large"
               onClick={this.selectCategory}
-              category-val="top-rated"
+              category-val="top_rated"
               className={`${
-                this.props.category === "top-rated" ? "selectedBtn" : ""
+                this.props.category === "top_rated" ? "selectedBtn" : ""
               }`}
             >
               Top Rated
