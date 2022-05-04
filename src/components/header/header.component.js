@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 
 import "./header.component.css";
 
-import { setCategory } from "../../actions/discover";
+import { setCategory, resetResults } from "../../actions/discover";
 
 class Header extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class Header extends Component {
 
   selectCategory(event) {
     const category = event.currentTarget.getAttribute("category-val");
+    this.props.dispatch(resetResults());
     this.props.dispatch(setCategory(category));
   }
 

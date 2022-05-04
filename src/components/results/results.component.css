@@ -4,7 +4,6 @@
   height: calc(100vh - 9rem);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   overflow: auto;
 }
 
@@ -18,4 +17,11 @@
   color: var(--blue);
   font-size: 1.4rem;
   font-weight: bold;
+  overflow-wrap: break-word;
+  max-width: 300px;
+}
+
+.results-container .content-card img {
+  min-width: 300px;
+  min-height: 500px;
 }

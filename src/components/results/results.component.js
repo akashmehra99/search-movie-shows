@@ -57,8 +57,9 @@ class Results extends Component {
             return (
               <div className="content-card" key={result.id} tabIndex={0}>
                 <img
+                  alt="Not bale to load image"
                   width={"300x"}
-                  height="500px"
+                  height={"500px"}
                   src={`https://image.tmdb.org/t/p/w300${result.poster_path}`}
                 ></img>
                 <div className="content_title">{result.title}</div>

@@ -9,7 +9,12 @@ import Select from "@mui/material/Select";
 import "./sideMenu.component.css";
 
 import { discoverAPI } from "../../api/discover.api";
-import { setGenre, setGenres, setType } from "../../actions/discover";
+import {
+  setGenre,
+  setGenres,
+  setType,
+  resetResults,
+} from "../../actions/discover";
 
 const discoverApi = discoverAPI();
 
@@ -23,17 +28,18 @@ class SideMenu extends Component {
   componentDidMount() {
     discoverApi.getGenres().then((genres) => {
       this.props.dispatch(setGenres(genres));
-      // this.props.dispatch(setGenre(genres[0].name));
     });
   }
 
   handleTypeChange = (event) => {
     const contentType = event.target.value;
+    this.props.dispatch(resetResults());
     this.props.dispatch(setType(contentType));
   };
 
   handleGenreChange = (event) => {
     const genre = event.target.value;
+    this.props.dispatch(resetResults());
     this.props.dispatch(setGenre(genre));
   };
 
@@ -71,7 +77,7 @@ class SideMenu extends Component {
               {this.props.genres &&
                 this.props.genres.length &&
                 this.props.genres.map((genre) => (
-                  <MenuItem key={genre.id} value={genre.name}>
+                  <MenuItem key={genre.id} value={genre.id}>
                     {genre.name}
                   </MenuItem>
                 ))}
