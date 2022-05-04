@@ -17,3 +17,17 @@ export const setCategory = (category = "popular") => ({
   type: "SET_CATEGORY",
   category,
 });
+
+export const setResults = (results = []) => ({
+  type: "SET_RESULTS",
+  results,
+});
+
+export const resetResults = () => ({
+  type: "RESET_RESULTS",
+});
+
+export const setPage = (page = 1) => ({
+  type: "SET_PAGE",
+  page,
+});

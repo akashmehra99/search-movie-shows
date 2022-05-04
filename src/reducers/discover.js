@@ -30,6 +30,21 @@ const discoverReducer = (state = discoverDefaultState, action) => {
         ...state,
         category: action.category,
       };
+    case "SET_RESULTS":
+      return {
+        ...state,
+        results: [...state.results, ...action.results],
+      };
+    case "RESET_RESULTS":
+      return {
+        ...state,
+        results: [],
+      };
+    case "SET_PAGE":
+      return {
+        ...state,
+        page: action.page,
+      };
     default:
       return state;
   }
