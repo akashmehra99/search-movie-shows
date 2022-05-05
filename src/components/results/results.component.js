@@ -34,12 +34,14 @@ class Results extends Component {
     if (
       newProps.contentType !== this.props.contentType ||
       newProps.genre !== this.props.genre ||
-      newProps.category !== this.props.category
+      newProps.category !== this.props.category ||
+      newProps.rating !== this.props.rating
     ) {
       this.getResults({
         contentType: this.props.contentType,
         genre: this.props.genre,
         category: this.props.category,
+        rating: this.props.rating
       });
     }
   }
@@ -54,13 +56,14 @@ class Results extends Component {
           page: this.props.page,
           contentType: this.props.contentType,
           genre: this.props.genre,
-          category: this.props.category
+          category: this.props.category,
+          rating: this.props.rating
         });
       }
     }
   }
 
-  getResults({ page = 1, contentType, genre, category}) {
+  getResults({ page = 1, contentType, genre, category, rating = 2.5}) {
     discoverApi
       .getResults({ page, contentType, genre, category })
       .then((res) => {
@@ -106,6 +109,7 @@ const mapStateToProps = (state) => {
     genre: state.discover.genre,
     contentType: state.discover.contentType,
     category: state.discover.category,
+    rating: state.discover.rating
   };
 };
 

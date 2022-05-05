@@ -19,7 +19,7 @@ export const discoverAPI = function (api_key) {
     return genres;
   };
 
-  var getResults = async function ({ page = 1, contentType, genre, category }) {
+  var getResults = async function ({ page = 1, contentType, genre, category, rating = 2.5 }) {
     let api_url = `${api_url_path}discover/`;
     api_url += contentType;
     let req_params = { ...params, page };
@@ -35,6 +35,9 @@ export const discoverAPI = function (api_key) {
     } else {
       req_params.sort_by = "vote_count.desc";
     }
+    req_params.vote_average = {
+      gte: rating
+    };
     let results = {};
     await axios
       .get(api_url, { params: req_params })

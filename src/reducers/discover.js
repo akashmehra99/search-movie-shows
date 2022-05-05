@@ -3,6 +3,7 @@ const discoverDefaultState = {
   genre: "",
   contentType: "movie",
   category: "popular",
+  rating: 2.5,
   error: false,
   results: [],
   page: 1,
@@ -29,6 +30,11 @@ const discoverReducer = (state = discoverDefaultState, action) => {
       return {
         ...state,
         category: action.category,
+      };
+    case "SET_RATING": 
+      return {
+        ...state,
+        rating: action.rating
       };
     case "SET_RESULTS":
       return {

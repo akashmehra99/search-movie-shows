@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Button from "@mui/material/Button";
+import SearchIcon from "@mui/icons-material/Search";
 
 import "./header.component.css";
 
@@ -71,7 +72,7 @@ class Header extends Component {
             </Button>
           </div>
           <div className="search">
-            <Button variant="text" size="large">
+            <Button variant="text" size="large" startIcon={<SearchIcon />}>
               Search
             </Button>
           </div>

@@ -18,6 +18,11 @@ export const setCategory = (category = "popular") => ({
   category,
 });
 
+export const setRating = (rating = 2.5) => ({
+  type: "SET_RATING",
+  rating
+})
+
 export const setResults = (results = []) => ({
   type: "SET_RESULTS",
   results,

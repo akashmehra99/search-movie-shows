@@ -5,6 +5,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Rating from "@mui/material/Rating";
+import Typography from "@mui/material/Typography";
 
 import "./sideMenu.component.css";
 
@@ -14,7 +16,10 @@ import {
   setGenres,
   setType,
   resetResults,
+  setRating,
 } from "../../actions/discover";
+import { debounce } from "../../util/debounce";
+
 
 const discoverApi = discoverAPI();
 
@@ -23,6 +28,7 @@ class SideMenu extends Component {
     super(props);
     this.handleGenreChange = this.handleGenreChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
+    this.handleRatingChange = debounce(this.handleRatingChange.bind(this), 200);
   }
 
   componentDidMount() {
@@ -41,6 +47,11 @@ class SideMenu extends Component {
     const genre = event.target.value;
     this.props.dispatch(resetResults());
     this.props.dispatch(setGenre(genre));
+  };
+
+  handleRatingChange = (event, newValue) => {
+    this.props.dispatch(resetResults());
+    this.props.dispatch(setRating(newValue));
   };
 
   render() {
@@ -83,6 +94,16 @@ class SideMenu extends Component {
                 ))}
             </Select>
           </FormControl>
+          <FormControl fullWidth className="formMargin">
+            <Typography component="legend">Rating</Typography>
+            <Rating
+              name="rating"
+              defaultValue={2.5}
+              precision={0.25}
+              value={this.props.rating}
+              onChange={this.handleRatingChange}
+            />
+          </FormControl>
         </div>
       </aside>
     );
@@ -94,6 +115,7 @@ const mapStateToProps = (state) => {
     genres: state.discover.genres,
     genre: state.discover.genre,
     contentType: state.discover.contentType,
+    rating: state.discover.rating
   };
 };
 

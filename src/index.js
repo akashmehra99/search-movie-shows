@@ -32,7 +32,8 @@ class App extends Component {
   render() {
     const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
     if (darkThemeMq.matches) {
-      theme = deepmerge(theme, darkTheme)
+      theme = deepmerge(theme, darkTheme);
+      document.documentElement.setAttribute("data-theme", "dark");
     }
     return (
       <ThemeProvider theme={theme}>
