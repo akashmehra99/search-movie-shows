@@ -7,6 +7,20 @@
   overflow: auto;
 }
 
+.results-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.results-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0 none; 
+    border-radius: 0;
+}
+
+.results-container::-webkit-scrollbar-thumb {
+   border-radius: 10px;
+  box-shadow: inset 0 0 26px var(--grey);
+}
+
 .results-container .content-card {
   margin: 0 3rem 6rem 0;
 }

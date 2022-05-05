@@ -1,4 +1,13 @@
 :root {
+  --background: #e2e5e8;
+  --side-menu-background: #e8ecef;
+  --blue: #0c77a3;
+  --white: #01010a;
+  --grey: #4a5259;
+  --shadow: #c8ccce;
+}
+
+[data-theme="dark"] {
   --background: #1a2127;
   --side-menu-background: #131a20;
   --blue: #0c77a3;
