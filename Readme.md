@@ -12,7 +12,7 @@
     * Application of year range
     * Search functionality
 
-    # Software engineering practices
+    ## Software engineering practices ##
 
         * Setting up lint rules
         * git hooks for linting and unit test coverage
