@@ -9,7 +9,6 @@
 # Action items
 
     * Unit test cases
-    * Application of year range
 
     ## Software engineering practices ##
 
@@ -19,5 +18,6 @@
 
 # Assumptions
 
-    * Search - Based only on query and type (movie / tv selected from side menu) 
+    * Search - Based only on query and type (movie / tv selected from side menu)
+    * Year - Just relase year is done instead of year rand as was not clear with the API params for the same
 
