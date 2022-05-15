@@ -20,7 +20,10 @@ header {
 }
 
 .search {
-  width: 15%;
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .menu .selectedBtn {

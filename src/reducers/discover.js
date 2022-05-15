@@ -7,6 +7,9 @@ const discoverDefaultState = {
   error: false,
   results: [],
   page: 1,
+  loading: false,
+  searchParam: "",
+  total_pages: 0,
 };
 
 const discoverReducer = (state = discoverDefaultState, action) => {
@@ -31,10 +34,10 @@ const discoverReducer = (state = discoverDefaultState, action) => {
         ...state,
         category: action.category,
       };
-    case "SET_RATING": 
+    case "SET_RATING":
       return {
         ...state,
-        rating: action.rating
+        rating: action.rating,
       };
     case "SET_RESULTS":
       return {
@@ -50,6 +53,21 @@ const discoverReducer = (state = discoverDefaultState, action) => {
       return {
         ...state,
         page: action.page,
+      };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.loading,
+      };
+    case "SET_SEARCH_PARAM":
+      return {
+        ...state,
+        searchParam: action.searchParam,
+      };
+    case "SET_TOTAL_PAGES":
+      return {
+        ...state,
+        total_pages: action.total_pages,
       };
     default:
       return state;

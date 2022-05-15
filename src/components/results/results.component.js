@@ -7,11 +7,7 @@ import { discoverAPI } from "../../api/discover.api";
 import { throttle } from "../../util/throttle";
 import { debounce } from "../../util/debounce";
 
-import {
-  setResults,
-  resetResults,
-  setPage
-} from "../../actions/discover";
+import { setResults, setPage, setLoading, setTotalPages } from "../../actions/discover";
 
 const discoverApi = discoverAPI();
 
@@ -35,43 +31,77 @@ class Results extends Component {
       newProps.contentType !== this.props.contentType ||
       newProps.genre !== this.props.genre ||
       newProps.category !== this.props.category ||
-      newProps.rating !== this.props.rating
+      newProps.rating !== this.props.rating ||
+      newProps.searchParam !== this.props.searchParam
     ) {
       this.getResults({
         contentType: this.props.contentType,
         genre: this.props.genre,
         category: this.props.category,
-        rating: this.props.rating
+        rating: this.props.rating * 2,
+        searchParam: this.props.searchParam,
       });
     }
   }
 
   onScroll() {
-    if (this.myRef.current) {
+    if (this.myRef.current && !this.props.loading) {
       const { scrollTop, scrollHeight } = this.myRef.current;
-      const scrollRatioCovered = (scrollTop / scrollHeight);
-      if (scrollRatioCovered >= 0.70) {
-        console.log("Scroll top -> ", scrollTop, scrollHeight, scrollRatioCovered, this.props.page);
+      const scrollRatioCovered = scrollTop / scrollHeight;
+      if (
+        scrollRatioCovered >= 0.7 &&
+        this.props.page <= this.props.total_pages
+      ) {
         this.getResults({
           page: this.props.page,
           contentType: this.props.contentType,
           genre: this.props.genre,
           category: this.props.category,
-          rating: this.props.rating
+          rating: this.props.rating * 2,
+          searchParam: this.props.searchParam,
         });
       }
     }
   }
 
-  getResults({ page = 1, contentType, genre, category, rating = 2.5}) {
-    discoverApi
-      .getResults({ page, contentType, genre, category })
-      .then((res) => {
-        console.log("Discover api response => ", res);
-        this.props.dispatch(setPage(res.page + 1));
+  getResults({
+    page = 1,
+    contentType,
+    genre,
+    category,
+    rating = 5,
+    searchParam,
+  }) {
+    this.props.dispatch(setLoading(true));
+    if (searchParam) {
+      discoverApi
+        .searchContent({ page, contentType, query: searchParam })
+        .then((res) => {
+          console.log("Search api response => ", res);
+          this.props.dispatch(setPage(res.page + 1));
           this.props.dispatch(setResults(res.results));
-      })
-      .catch((error) => console.error(error));
+          this.props.dispatch(setLoading(false));
+          this.props.dispatch(setTotalPages(res.total_pages));
+        })
+        .catch((error) => {
+          console.error("Error in searching => ", error);
+          this.props.dispatch(setLoading(false));
+        });
+    } else {
+      discoverApi
+        .getResults({ page, contentType, genre, category, rating })
+        .then((res) => {
+          console.log("Discover api response => ", res);
+          this.props.dispatch(setPage(res.page + 1));
+          this.props.dispatch(setResults(res.results));
+          this.props.dispatch(setLoading(false));
+          this.props.dispatch(setTotalPages(res.total_pages));
+        })
+        .catch((error) => {
+          console.error(error);
+          this.props.dispatch(setLoading(false));
+        });
+    }
   }
 
   render() {
@@ -86,7 +116,7 @@ class Results extends Component {
             return (
               <div className="content-card" key={result.id} tabIndex={0}>
                 <img
-                  alt="Not bale to load image"
+                  alt="Not able to load image"
                   width={"300x"}
                   height={"500px"}
                   src={`https://image.tmdb.org/t/p/w300${result.poster_path}`}
@@ -109,7 +139,10 @@ const mapStateToProps = (state) => {
     genre: state.discover.genre,
     contentType: state.discover.contentType,
     category: state.discover.category,
-    rating: state.discover.rating
+    rating: state.discover.rating,
+    loading: state.discover.loading,
+    total_pages: state.discover.total_pages,
+    searchParam: state.discover.searchParam,
   };
 };
 

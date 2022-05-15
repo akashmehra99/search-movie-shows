@@ -36,3 +36,18 @@ export const setPage = (page = 1) => ({
   type: "SET_PAGE",
   page,
 });
+
+export const setLoading = (loading = false) => ({
+  type: "SET_LOADING",
+  loading,
+});
+
+export const setSearchParam = (searchParam = "") => ({
+  type: "SET_SEARCH_PARAM",
+  searchParam,
+});
+
+export const setTotalPages = (total_pages = 0) => ({
+  type: "SET_TOTAL_PAGES",
+  total_pages,
+});

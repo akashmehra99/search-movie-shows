@@ -3,21 +3,47 @@ import { connect } from "react-redux";
 
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 import "./header.component.css";
 
-import { setCategory, resetResults } from "../../actions/discover";
+import {
+  setCategory,
+  resetResults,
+  setSearchParam,
+} from "../../actions/discover";
+import { debounce } from "../../util/debounce";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.selectCategory = this.selectCategory.bind(this);
+    this.showSearchInput = this.showSearchInput.bind(this);
+    this.getSearchValue = debounce(this.getSearchValue.bind(this), 500);
+    this.state = {
+      showSearchInputField: false,
+    };
   }
 
   selectCategory(event) {
     const category = event.currentTarget.getAttribute("category-val");
     this.props.dispatch(resetResults());
+    this.props.dispatch(setSearchParam(""));
     this.props.dispatch(setCategory(category));
+  }
+
+  showSearchInput() {
+    this.props.dispatch(setCategory("search"));
+    this.setState({ showSearchInputField: !this.state.showSearchInputField });
+  }
+
+  getSearchValue(event) {
+    const searchParam = event?.target?.value && event.target.value.trim();
+    if (searchParam) {
+      this.props.dispatch(resetResults());
+      this.props.dispatch(setSearchParam(searchParam));
+    }
   }
 
   render() {
@@ -72,9 +98,31 @@ class Header extends Component {
             </Button>
           </div>
           <div className="search">
-            <Button variant="text" size="large" startIcon={<SearchIcon />}>
-              Search
-            </Button>
+            {this.state.showSearchInputField && (
+              <TextField
+                id="search-content"
+                label="SEARCH"
+                variant="outlined"
+                onChange={this.getSearchValue}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+            {!this.state.showSearchInputField && (
+              <Button
+                variant="text"
+                onClick={this.showSearchInput}
+                size="large"
+                startIcon={<SearchIcon />}
+              >
+                Search
+              </Button>
+            )}
           </div>
         </header>
       </React.Fragment>
@@ -85,6 +133,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     category: state.discover.category,
+    searchParam: state.discover.searchParam,
   };
 };
 

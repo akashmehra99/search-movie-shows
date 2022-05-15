@@ -10,11 +10,14 @@
 
     * Unit test cases
     * Application of year range
-    * Search functionality
 
     ## Software engineering practices ##
 
         * Setting up lint rules
         * git hooks for linting and unit test coverage
         * default code formatter
+
+# Assumptions
+
+    * Search - Based only on query and type (movie / tv selected from side menu) 
 

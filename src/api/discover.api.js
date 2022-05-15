@@ -19,7 +19,13 @@ export const discoverAPI = function (api_key) {
     return genres;
   };
 
-  var getResults = async function ({ page = 1, contentType, genre, category, rating = 2.5 }) {
+  var getResults = async function ({
+    page = 1,
+    contentType,
+    genre,
+    category,
+    rating = 5,
+  }) {
     let api_url = `${api_url_path}discover/`;
     api_url += contentType;
     let req_params = { ...params, page };
@@ -36,7 +42,7 @@ export const discoverAPI = function (api_key) {
       req_params.sort_by = "vote_count.desc";
     }
     req_params.vote_average = {
-      gte: rating
+      gte: rating,
     };
     let results = {};
     await axios
@@ -48,8 +54,23 @@ export const discoverAPI = function (api_key) {
     return results;
   };
 
+  var searchContent = async function ({ page = 1, query = "", contentType }) {
+    const api_url = `${api_url_path}search/${contentType}`;
+    const req_params = { ...params, page, query };
+    let results = {};
+    await axios
+      .get(api_url, { params: req_params })
+      .then((data) => {
+        results = data.data;
+      })
+      .catch((error) => console.error("Error in searching content => ", error));
+
+    return results;
+  };
+
   return {
     getGenres,
     getResults,
+    searchContent,
   };
 };
