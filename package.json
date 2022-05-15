@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js",
-    "start": "webpack-dev-server --config webpack.dev.js"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "predeploy": "npm run build:prod",
+    "deploy": "gh-pages -d dist"
   },
   "engines": {
     "node": ">=16"
@@ -20,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/akashmehra99/search-movie-shows/issues"
   },
-  "homepage": "https://github.com/akashmehra99/search-movie-shows#readme",
+  "homepage": "https://github.com/akashmehra99/search-movie-shows",
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/plugin-transform-runtime": "^7.17.10",
@@ -30,6 +32,7 @@
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.4.13",
     "postcss-loader": "^6.2.1",
