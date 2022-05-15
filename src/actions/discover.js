@@ -51,3 +51,8 @@ export const setTotalPages = (total_pages = 0) => ({
   type: "SET_TOTAL_PAGES",
   total_pages,
 });
+
+export const setYear = (year = "") => ({
+  type: "SET_YEAR",
+  year,
+});

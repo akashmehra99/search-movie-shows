@@ -25,6 +25,7 @@ export const discoverAPI = function (api_key) {
     genre,
     category,
     rating = 5,
+    year
   }) {
     let api_url = `${api_url_path}discover/`;
     api_url += contentType;
@@ -44,6 +45,9 @@ export const discoverAPI = function (api_key) {
     req_params.vote_average = {
       gte: rating,
     };
+    if (year) {
+      req_params.year = year;
+    }
     let results = {};
     await axios
       .get(api_url, { params: req_params })

@@ -10,6 +10,7 @@ const discoverDefaultState = {
   loading: false,
   searchParam: "",
   total_pages: 0,
+  year: "",
 };
 
 const discoverReducer = (state = discoverDefaultState, action) => {
@@ -68,6 +69,11 @@ const discoverReducer = (state = discoverDefaultState, action) => {
       return {
         ...state,
         total_pages: action.total_pages,
+      };
+    case "SET_YEAR": 
+      return {
+        ...state,
+        year: action.year,
       };
     default:
       return state;

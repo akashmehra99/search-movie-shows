@@ -17,6 +17,7 @@ import {
   setType,
   resetResults,
   setRating,
+  setYear
 } from "../../actions/discover";
 import { debounce } from "../../util/debounce";
 
@@ -29,12 +30,23 @@ class SideMenu extends Component {
     this.handleGenreChange = this.handleGenreChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleRatingChange = debounce(this.handleRatingChange.bind(this), 200);
+    this.handleYearChange = this.handleYearChange.bind(this);
+    this.years = this.generateYears();
   }
 
   componentDidMount() {
     discoverApi.getGenres().then((genres) => {
       this.props.dispatch(setGenres(genres));
     });
+  }
+
+  generateYears(startYear = 1950) {
+    let currentYear = new Date().getFullYear();
+    let years = [];
+    for (let i = currentYear; i >= startYear; i--) {
+      years.push(i);
+    }
+    return years;
   }
 
   handleTypeChange = (event) => {
@@ -52,6 +64,12 @@ class SideMenu extends Component {
   handleRatingChange = (event, newValue) => {
     this.props.dispatch(resetResults());
     this.props.dispatch(setRating(newValue));
+  };
+
+  handleYearChange = (event) => {
+    const year = event.target.value;
+    this.props.dispatch(resetResults());
+    this.props.dispatch(setYear(year));
   };
 
   render() {
@@ -95,6 +113,27 @@ class SideMenu extends Component {
             </Select>
           </FormControl>
           <FormControl fullWidth className="formMargin">
+            <InputLabel id="year-label">Select Year</InputLabel>
+            <Select
+              labelId="year-label"
+              id="year-select"
+              value={this.props.year}
+              label="Select Year"
+              onChange={this.handleYearChange}
+            >
+              <MenuItem key={"year_default"} value="">
+                Select Year
+              </MenuItem>
+              {this.years &&
+                this.years.length &&
+                this.years.map((year) => (
+                  <MenuItem key={`year_${year}`} value={year}>
+                    {year}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth className="formMargin">
             <Typography component="legend">Rating</Typography>
             <Rating
               name="rating"
@@ -115,7 +154,8 @@ const mapStateToProps = (state) => {
     genres: state.discover.genres,
     genre: state.discover.genre,
     contentType: state.discover.contentType,
-    rating: state.discover.rating
+    rating: state.discover.rating,
+    year: state.discover.year,
   };
 };
 

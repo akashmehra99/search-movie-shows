@@ -32,7 +32,8 @@ class Results extends Component {
       newProps.genre !== this.props.genre ||
       newProps.category !== this.props.category ||
       newProps.rating !== this.props.rating ||
-      newProps.searchParam !== this.props.searchParam
+      newProps.searchParam !== this.props.searchParam ||
+      newProps.year !== this.props.year
     ) {
       this.getResults({
         contentType: this.props.contentType,
@@ -40,6 +41,7 @@ class Results extends Component {
         category: this.props.category,
         rating: this.props.rating * 2,
         searchParam: this.props.searchParam,
+        year: this.props.year
       });
     }
   }
@@ -59,6 +61,7 @@ class Results extends Component {
           category: this.props.category,
           rating: this.props.rating * 2,
           searchParam: this.props.searchParam,
+          year: this.props.year
         });
       }
     }
@@ -71,6 +74,7 @@ class Results extends Component {
     category,
     rating = 5,
     searchParam,
+    year
   }) {
     this.props.dispatch(setLoading(true));
     if (searchParam) {
@@ -89,7 +93,7 @@ class Results extends Component {
         });
     } else {
       discoverApi
-        .getResults({ page, contentType, genre, category, rating })
+        .getResults({ page, contentType, genre, category, rating, year })
         .then((res) => {
           console.log("Discover api response => ", res);
           this.props.dispatch(setPage(res.page + 1));
@@ -143,6 +147,7 @@ const mapStateToProps = (state) => {
     loading: state.discover.loading,
     total_pages: state.discover.total_pages,
     searchParam: state.discover.searchParam,
+    year: state.discover.year
   };
 };
 
